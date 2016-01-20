@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.ProfileManagerService
+path: 2C4D3C087A794B89B06D65E19519A2CC.gwt.rpc

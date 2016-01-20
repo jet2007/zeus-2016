@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.GroupService
+path: 8556AD834644F8D01E08ACD7663375FC.gwt.rpc

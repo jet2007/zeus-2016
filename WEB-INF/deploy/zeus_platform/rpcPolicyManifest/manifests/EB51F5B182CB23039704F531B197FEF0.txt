@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.JobDebugService
+path: 9BD650547684849D7E6140A42AD0331A.gwt.rpc

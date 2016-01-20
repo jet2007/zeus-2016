@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.TableManagerService
+path: 4F2164FEA1DC71E7AEF0557DEC1F294D.gwt.rpc

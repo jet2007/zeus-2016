@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.FileManagerService
+path: CAD0241BC4323956149A730621E1E461.gwt.rpc

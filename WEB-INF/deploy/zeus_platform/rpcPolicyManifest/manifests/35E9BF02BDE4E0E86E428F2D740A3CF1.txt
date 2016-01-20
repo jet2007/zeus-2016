@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.TreeService
+path: 87E9AC110EBC49727D22CCC1085ABF18.gwt.rpc

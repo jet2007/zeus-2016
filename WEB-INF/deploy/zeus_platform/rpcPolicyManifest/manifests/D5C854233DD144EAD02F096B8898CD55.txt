@@ -1,0 +1,2 @@
+serviceClass: com.taobao.zeus.web.platform.shared.rpc.ReportService
+path: 1952EF3D8B40DBB95E2C623B453BA8CD.gwt.rpc

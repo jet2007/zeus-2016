@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd "
+    default-autowire="byName">
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:antx.properties"/>
+	<bean id="environment" class="com.taobao.zeus.util.Environment" >
+		<constructor-arg index="0">
+			<value>online</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>online</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>/data/zeus/job_dir</value>
+		</constructor-arg>
+		<constructor-arg index="3">
+			<value>/usr/lib/hadoop</value>
+		</constructor-arg>
+		<constructor-arg index="4">
+			<value>/etc/hadoop/conf</value>
+		</constructor-arg>
+		<constructor-arg index="5">
+			<value>/usr/lib/hive</value>
+		</constructor-arg>
+		<constructor-arg index="6">
+			<value>/etc/hive/conf</value>
+		</constructor-arg>
+		<constructor-arg index="7">
+			<value>${email.host}</value>
+		</constructor-arg>
+		<constructor-arg index="8">
+			<value>${email.port}</value>
+		</constructor-arg>
+		<constructor-arg index="9">
+			<value>${email.username}</value>
+		</constructor-arg>
+		<constructor-arg index="10">
+			<value>${email.password}</value>
+		</constructor-arg>
+		<constructor-arg index="11">
+			<value>${email.sendFrom}</value>
+		</constructor-arg>
+		<constructor-arg index="12">
+			<value>${noc.notifyUrl}</value>
+		</constructor-arg>
+		<constructor-arg index="13">
+			<value>${noc.accessToken}</value>
+		</constructor-arg>
+		<constructor-arg index="14">
+			<value>jar</value>
+		</constructor-arg>
+		<constructor-arg index="15">
+			<value>${zeus.defaultWorkerGroup.id}</value>
+		</constructor-arg>
+		<constructor-arg index="16">
+			<value>${zeus.preemptionMasterGroup.id}</value>
+		</constructor-arg>
+		<constructor-arg index="17">
+			<value>${zeus.maxMemRate}</value>
+		</constructor-arg>
+		<constructor-arg index="18">
+			<value>${zeus.cpuLoadPerCore}</value>
+		</constructor-arg>
+		<constructor-arg index="19">
+			<value>${zeus.scanPeriod}</value>
+		</constructor-arg>
+		<constructor-arg index="20">
+			<value>${zeus.scanExceptionPeriod}</value>
+		</constructor-arg>
+		
+		<constructor-arg index="21">
+			<value>${osg.hive.privilegeUrl}</value>
+		</constructor-arg>
+		<constructor-arg index="22">
+			<value>${osg.accessToken}</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="clientWorker" class="com.taobao.zeus.socket.worker.ClientWorker" >
+	</bean>
+
+	<!-- gwt bean -->
+	<bean id="user.rpc" class="com.taobao.zeus.web.platform.server.rpc.UserServiceImpl" />
+	<bean id="tree.rpc" class="com.taobao.zeus.web.platform.server.rpc.TreeServiceImpl" />
+	<bean id="group.rpc" class="com.taobao.zeus.web.platform.server.rpc.GroupServiceImpl" />
+	<bean id="job.rpc" class="com.taobao.zeus.web.platform.server.rpc.FilterJobServiceImpl">
+		<property name="jobService">
+			<bean class="com.taobao.zeus.web.platform.server.rpc.JobServiceImpl" />
+		</property>
+	</bean>
+	<bean id="file.rpc" class="com.taobao.zeus.web.platform.server.rpc.FileManagerRpcImpl" />
+	<bean id="debug.rpc" class="com.taobao.zeus.web.platform.server.rpc.JobDebugRpcImpl" />
+	<bean id="profile.rpc" class="com.taobao.zeus.web.platform.server.rpc.ProfileManagerRpcImpl" />
+	<bean id="table.rpc" class="com.taobao.zeus.web.platform.server.rpc.TableManagerRpcImpl" />
+	<bean id="report.rpc" class="com.taobao.zeus.web.platform.server.rpc.ReportRpcImpl" />
+	
+	<!-- Manager -->
+	<bean id="profileManager" class="com.taobao.zeus.store.mysql.MysqlProfileManager" />
+	<bean id="debugHistoryManager" class="com.taobao.zeus.store.mysql.MysqlDebugHistoryManager" />
+	<bean id="fileManager" class="com.taobao.zeus.store.mysql.MysqlFileManager" />
+	<bean id="followManagerOld" class="com.taobao.zeus.store.mysql.MysqlFollowManagerOld" />
+	<bean id="userManager" class="com.taobao.zeus.store.mysql.MysqlUserManager" />
+	<bean id="jobHistoryManager" class="com.taobao.zeus.store.mysql.MysqlJobHistoryManager" />
+	<bean id="permissionManager" class="com.taobao.zeus.store.mysql.MysqlPermissionManager" />
+	<bean id="actionManager" class="com.taobao.zeus.store.mysql.MysqlActionManager" />
+	<bean id="groupManager" class="com.taobao.zeus.store.mysql.MysqlGroupManager" />
+	<bean id="tableManager" class="com.taobao.zeus.store.CliTableManager" />
+	<bean id="reportManager" class="com.taobao.zeus.store.mysql.MysqlReportManager" />
+	<bean id="zeusLogManager" class="com.taobao.zeus.store.mysql.MysqlLogManager" />
+	<bean id="hostGroupManager" class="com.taobao.zeus.store.mysql.MysqlHostGroupManager" />
+	<!-- <bean id="readOnlyGroupManager" class="com.taobao.zeus.store.mysql.ReadOnlyGroupManager" >
+		<property name="groupManager" ref="groupManager" />
+	</bean> -->
+	<bean id="readOnlyGroupManagerOld" class="com.taobao.zeus.store.mysql.ReadOnlyGroupManagerOld" >
+		<property name="groupManager" ref="groupManager" />
+	</bean>
+	<bean id="permissionScheduleGroupManagerOld" class="com.taobao.zeus.web.PermissionAndConditionManager" >
+		<property name="groupManager" ref="groupManager"></property>
+	</bean>
+	<!-- <bean id="permissionScheduleGroupManager" class="com.taobao.zeus.web.PermissionGroupManager" >
+		<property name="groupManager" ref="scheduleGroupManager"></property>
+	</bean> -->
+<!-- 	<bean id="scheduleGroupManagerOld" class="com.taobao.zeus.web.ScheduleGroupManagerOld" >
+		<property name="groupManager" ref="groupManager"></property>
+	</bean> -->
+		<!-- <bean id="scheduleGroupManager" class="com.taobao.zeus.web.ScheduleGroupManager" >
+		<property name="groupManager" ref="groupManager"></property>
+	</bean> -->
+	
+<!-- 	<bean id="jobValidate" class="com.taobao.zeus.store.mysql.tool.JobValidate"></bean> -->
+	
+	<bean id="jobValidateOld" class="com.taobao.zeus.store.mysql.tool.JobValidateOld"></bean>
+	
+	<bean id="distributeLocker" class="com.taobao.zeus.schedule.DistributeLocker" init-method="init" depends-on="environment">
+		<constructor-arg>
+			<value>**********</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="zeusSchedule" class="com.taobao.zeus.schedule.ZeusSchedule"></bean>
+	<bean id="master" class="com.taobao.zeus.socket.master.Master"></bean>
+	
+	<bean id="actionUtils" class="com.ctrip.zeus.tool.ActionUtils"></bean>
+	<bean id="checkLostActionUtils" class="com.ctrip.zeus.tool.CheckLostActionUtils"></bean>
+	<bean id="zeusQuartzUtils" class="com.ctrip.zeus.tool.ZeusQuartzUtils"></bean>
+	
+	<bean id="defaultValueManager" class="com.taobao.zeus.store.mysql.MysqlDefaultValueManager"></bean>
+	
+	<bean id="context" class="com.taobao.zeus.socket.master.MasterContext"></bean>
+	<bean id="dispatcher" class="com.ctrip.zeus.schedule.Dispatcher"></bean>
+	
+	<bean id="successEventHandler" class="com.ctrip.zeus.event.handler.SuccessEventHandler"></bean>
+	<bean id="failedEventHandler" class="com.ctrip.zeus.event.handler.FailedEventHandler"></bean>
+	<bean id="triggerEventHandler" class="com.ctrip.zeus.event.handler.TriggerEventHandler"></bean>
+	
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.jdbc.fetch_size">80</prop>
+				<prop key="hibernate.jdbc.batch_size">35</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.taobao.zeus.store.mysql.persistence.GroupPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.ActionPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.JobPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.DistributeLock
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.JobHistoryPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.ZeusUser</value>
+				<value>com.taobao.zeus.store.mysql.persistence.ZeusFollowPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.PermissionPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.FilePersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.DebugHistoryPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.ProfilePersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.TimeZone</value>
+				<value>com.taobao.zeus.store.mysql.persistence.Worker</value>
+				<value>com.taobao.zeus.store.mysql.persistence.LogPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.HostGroupPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.HostRelationPersistence
+				</value>
+				<value>com.taobao.zeus.store.mysql.persistence.DefaultValue</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="**********" />
+		<property name="url" value="**********" />
+		<property name="username" value="**********" />
+		<property name="password" value="**********" />
+		<property name="maxActive" value="50" />
+		<property name="initialSize" value="10" />
+		<property name="maxWait" value="60000" />
+		<property name="maxIdle" value="30" />
+		<property name="minIdle" value="10" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="180" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+</beans>

@@ -1,0 +1,11 @@
+# Module zeus_platform
+# RPC service class, partial path of RPC policy file
+com.taobao.zeus.web.platform.shared.rpc.JobService, 43FF6F8277E85742420CD95652EC8D93.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.UserService, 8792E36E7161BAC366A4F3E1F22789E7.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.TreeService, 87E9AC110EBC49727D22CCC1085ABF18.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.GroupService, 8556AD834644F8D01E08ACD7663375FC.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.FileManagerService, CAD0241BC4323956149A730621E1E461.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.ProfileManagerService, 2C4D3C087A794B89B06D65E19519A2CC.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.ReportService, 1952EF3D8B40DBB95E2C623B453BA8CD.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.TableManagerService, 4F2164FEA1DC71E7AEF0557DEC1F294D.gwt.rpc
+com.taobao.zeus.web.platform.shared.rpc.JobDebugService, 9BD650547684849D7E6140A42AD0331A.gwt.rpc
